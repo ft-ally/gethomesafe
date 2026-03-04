@@ -1,9 +1,35 @@
+import tt from '@tomtom-international/web-sdk-maps';
+import '@tomtom-international/web-sdk-maps/dist/maps.css';
+
 const map = tt.map({
     key: import.meta.env.VITE_API_KEY,
     container: 'map',
     center: [4.9041, 52.3676], // Amsterdam coordinates [lng, lat]
-    zoom: 12
+    zoom: 11
 });
+
+let locations = []; //hold markers and coordinates
+
+map.on('click', (event) => {
+	console.log('Map clicked', event.lngLat);
+});
+
+map.on('click', (event) => {
+	const { lng, lat } = event.lngLat;
+	
+	const isFirstMarker = locations.length === 0;
+	
+	const marker = new tt.Marker({color: isFirstMarker ? '#B73188' : '#4A90E2'})
+		.setLngLat([lng, lat])
+		.addTo(map);
+	
+	locations.push({marker, coordinates: [lng, lat]});
+});
+
+console.log('Map loaded! Start building...');
+
+
+
 
 // TODO:
 // 1. Click on map to add markers (saved loc)
@@ -11,5 +37,3 @@ const map = tt.map({
 // 3. Calculate routes between points
 // 4. Save/load locations from localStorage
 // 5. Add UI controls (buttons, search bar)
-
-console.log('Map loaded! Start building...');
