@@ -5,8 +5,8 @@ import { attachClickListener } from './utils.js';
 const map = tt.map({
     key: import.meta.env.VITE_API_KEY,
     container: 'map',
-    center: [4.9041, 52.3676], // Amsterdam coordinates [lng, lat]
-    zoom: 11
+    center: [ 4.8647172085932056, 52.37212469778499], // [lng, lat]
+    zoom: 12.5
 });
 
 let locations = [];
@@ -18,15 +18,20 @@ map.on('click', (event) => {
 
 map.on('click', (event) => {
 	const { lng, lat } = event.lngLat;
-	
 	const isFirstMarker = locations.length === 0;
-	
 	const marker = new tt.Marker({color: isFirstMarker ? '#B73188' : '#165634'})
 		.setLngLat([lng, lat])
 		.addTo(map);
-	
-	locations.push({marker, coordinates: [lng, lat]});
 	attachClickListener(marker, locations, map, tt);
+	
+	const location = {
+		id: Date.now(),
+		lng: lng,
+		lat: lat,
+		marker: marker
+	};
+	locations.push({location});
+	
 });
 
 

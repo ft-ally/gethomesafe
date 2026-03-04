@@ -1,15 +1,46 @@
 /*Here i will add the containers for css
 Shoutout to Freek for this sheet inspiration :) */
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
 /*===GENERAL COLORS AND VARIABLES===*/
 :root {
-    --blue: #3AA2DB;
+	--blue: #3AA2DB;
     --lightpurple: #e9e4ff;
 	--background: #f3f1fdfd;
     --darkgreen: #165634;
     --purple: #B73188;
     --pink: #e83e8c;
     --red: #E52A2D;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+}
+/*===GENERAL and BUTTONS!===*/
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.primary-btn {
+	width: auto;
+	height: auto;
+	padding-left: 8px;
+	padding-right:8px;
+	border-radius: 10px;
+	border-color: lightblue;
+	background-color:lightblue;
+	color: black;
+	font-size: 1rem;
+	font-weight: 300;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.primary-btn:click {
+	box-shadow: 1px;
 }
 
 /*===HEADER===*/
@@ -24,25 +55,51 @@ header {
     z-index: 1000;
 }
 
-.logo {
-    height: 50px;
-    width: auto;
-}
-
 #header-logo {
     display: block;
 }
 
+
+/*===SIDEBAR===*/
+
+.sidebar {
+	position: fixed;
+	top: 80px;
+    background-color: rgba(168, 167, 167, 0.5);
+	width: 600px;
+	height: 1200px;
+	backdrop-filter: blur(8px);
+	border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    overflow-y: auto;    /* Scrollable if content is long */
+    z-index: 500
+}
+.sidebar h2 {
+	color: var(--darkgreen);
+	font-size: 5rem;
+	margin-bottom: 20px;
+	font-weight: 400px;
+}
+
+.sidebar h3 {
+	color:#000000;
+	font-size: 1.5rem;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
+.sidebar p {
+	font-weight: 400;
+}
 /*===MAP CONTAINER===*/
 .map-container {
-    position: absolute;
+    position:absolute;
     top: 70px;
     left: 0;
     width: 100%;
     height: calc(100vh - 70px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	z-index: 1;
 }
 
-/*===GENERAL===*/
