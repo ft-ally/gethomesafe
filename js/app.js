@@ -1,5 +1,6 @@
 import tt from '@tomtom-international/web-sdk-maps';
 import '@tomtom-international/web-sdk-maps/dist/maps.css';
+import { attachClickListener } from './utils.js';
 
 const map = tt.map({
     key: import.meta.env.VITE_API_KEY,
@@ -8,7 +9,8 @@ const map = tt.map({
     zoom: 11
 });
 
-let locations = []; //hold markers and coordinates
+let locations = [];
+
 
 map.on('click', (event) => {
 	console.log('Map clicked', event.lngLat);
@@ -19,17 +21,20 @@ map.on('click', (event) => {
 	
 	const isFirstMarker = locations.length === 0;
 	
-	const marker = new tt.Marker({color: isFirstMarker ? '#B73188' : '#4A90E2'})
+	const marker = new tt.Marker({color: isFirstMarker ? '#B73188' : '#165634'})
 		.setLngLat([lng, lat])
 		.addTo(map);
 	
 	locations.push({marker, coordinates: [lng, lat]});
+	attachClickListener(marker, locations, map, tt);
 });
 
-console.log('Map loaded! Start building...');
 
 
 
+/*If location length is still 0, it is first marker -> change origin color accordingly
+-
+*/
 
 // TODO:
 // 1. Click on map to add markers (saved loc)
