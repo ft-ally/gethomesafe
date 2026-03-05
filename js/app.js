@@ -1,6 +1,9 @@
 import tt from '@tomtom-international/web-sdk-maps';
 import '@tomtom-international/web-sdk-maps/dist/maps.css';
-import { attachClickListener, setupWelcome } from './utils.js';
+import { setupWelcome } from './utils.js';
+import {attachClickListener} from './markers.js';
+import { getUserLocation } from './geolocation.js';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     setupWelcome();
@@ -26,16 +29,24 @@ map.on('click', (event) => {
 		.setLngLat([lng, lat])
 		.addTo(map);
 	attachClickListener(marker, locations, map, tt);
-	
 	const location = {
 		id: Date.now(),
 		lng: lng,
 		lat: lat,
 		marker: marker
 	};
-	locations.push({location});
-	
+	locations.push(location);  // FIXED: Removed extra wrapper
+	console.log('Locations array:', locations);
 });
+
+
+const useLocationBtn = document.getElementById('use-loc');
+
+if (useLocationBtn)
+{
+	useLocationBtn.addEventListener('click', () => getUserLocation(locations, map, tt, useLocationBtn));
+}
+
 
 
 
@@ -50,3 +61,18 @@ map.on('click', (event) => {
 // 3. Calculate routes between points
 // 4. Save/load locations from localStorage
 // 5. Add UI controls (buttons, search bar)
+
+//search
+
+// routing
+// take me there button goes to routing
+
+// adding the first pin as origin
+// adding the origin as first pin
+
+// adding destination as pin
+// adding new search bar when there are more pins
+// adding pin in destination
+// buttons:
+// clicking on add button shows a new search bar
+// clicking on location button checks geolocation

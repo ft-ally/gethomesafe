@@ -84,7 +84,8 @@ body {
     font-weight: 600;
     border-radius: 25px;
     cursor: pointer;
-	margin: 2rem;
+	margin: 2rem auto;
+	display: block;
     transition: all 0.3s ease;
 }
 
@@ -120,6 +121,7 @@ header {
 }
 
 /*WELCOME*/
+
 .welcome-message {
     text-align: center;
     padding: 3rem 2rem;
@@ -155,7 +157,7 @@ header {
 .sidebar {
 	position: fixed;
 	top: 80px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
 	width: 600px;
 	height: 1200px;
 	backdrop-filter: blur(8px);
