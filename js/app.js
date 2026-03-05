@@ -8,7 +8,6 @@ import { getUserLocation } from './geolocation.js';
 document.addEventListener('DOMContentLoaded', () => {
     setupWelcome();
 });
-
 const map = tt.map({
     key: import.meta.env.VITE_API_KEY,
     container: 'map',
@@ -35,7 +34,7 @@ map.on('click', (event) => {
 		lat: lat,
 		marker: marker
 	};
-	locations.push(location);  // FIXED: Removed extra wrapper
+	locations.push(location);
 	console.log('Locations array:', locations);
 });
 
@@ -44,7 +43,8 @@ const useLocationBtn = document.getElementById('use-loc');
 
 if (useLocationBtn)
 {
-	useLocationBtn.addEventListener('click', () => getUserLocation(locations, map, tt, useLocationBtn));
+	const originInput = document.getElementById('origin-input');
+	useLocationBtn.addEventListener('click', () => getUserLocation(locations, map, tt, useLocationBtn, originInput));
 }
 
 

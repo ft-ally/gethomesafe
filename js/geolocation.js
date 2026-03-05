@@ -1,9 +1,38 @@
 import { attachClickListener } from "./markers";
+
+/**Using reverse geocoding api */
+async function getAddressFromCoordinates(latitude, longitude)
+{
+	try {
+		const apiKey = import.meta.env.VITE_API_KEY;
+		const url = `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?key=${apiKey}`;
+		
+		const response = await fetch(url);
+		const data = await response.json();
+		console.log('Full API response:', data);
+		if (data.addresses && data.addresses.length > 0)
+		{
+			const address = data.addresses[0].address.freeformAddress;
+			return address;
+		}
+		
+		return 'Current location';
+	} catch (error) {
+		console.error('Error getting address: ', error);
+		return 'Current Location';
+	}
+}
+
+
 /** save coord, add the marker,  */
-export function handleLocationSuccess(position, locations, map, tt, useLocationBtn)
+export async function handleLocationSuccess(position, locations, map, tt, useLocationBtn, originInput)
 {
 	const { latitude, longitude } = position.coords;
 	console.log('User location:', latitude, longitude);
+	const address = await getAddressFromCoordinates(latitude, longitude);
+	console.log('Address: ', address);
+	if (originInput)
+		originInput.value = address;
 	const isFirstMarker = locations.length === 0;
 	
 		const marker = new tt.Marker({
@@ -45,7 +74,7 @@ export function handleLocationError(error, useLocationBtn)
 
 /**Check browser geolocation support, disable the button while loading the loc, 
  * request user location */
-export function getUserLocation(locations,map, tt, useLocationBtn)
+export function getUserLocation(locations,map, tt, useLocationBtn, originInput)
 {
 	if (!navigator.geolocation)
 	{
@@ -55,7 +84,7 @@ export function getUserLocation(locations,map, tt, useLocationBtn)
 	useLocationBtn.disabled = true;
 	useLocationBtn.textContent = '⏳';
 	navigator.geolocation.getCurrentPosition(
-		(position) => handleLocationSuccess(position, locations, map, tt, useLocationBtn),
+		(position) => handleLocationSuccess(position, locations, map, tt, useLocationBtn, originInput),
 		(error) => handleLocationError(error, useLocationBtn)
 	);
 }
