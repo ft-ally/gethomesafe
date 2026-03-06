@@ -9,7 +9,6 @@ async function getAddressFromCoordinates(latitude, longitude)
 		
 		const response = await fetch(url);
 		const data = await response.json();
-		console.log('Full API response:', data);
 		if (data.addresses && data.addresses.length > 0)
 		{
 			const address = data.addresses[0].address.freeformAddress;

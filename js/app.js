@@ -54,25 +54,3 @@ if (useLocationBtn)
 /*If location length is still 0, it is first marker -> change origin color accordingly
 -
 */
-
-// TODO:
-// 1. Click on map to add markers (saved loc)
-// 2. Search for places
-// 3. Calculate routes between points
-// 4. Save/load locations from localStorage
-// 5. Add UI controls (buttons, search bar)
-
-//search
-
-// routing
-// take me there button goes to routing
-
-// adding the first pin as origin
-// adding the origin as first pin
-
-// adding destination as pin
-// adding new search bar when there are more pins
-// adding pin in destination
-// buttons:
-// clicking on add button shows a new search bar
-// clicking on location button checks geolocation
